@@ -3,7 +3,7 @@ const { User, Comment } = require('../../models');
 
 // Prevent non logged in users from viewing the homepage
 router.get('/', async (req, res) => {
-  PostComment.findALL({
+  Comment.findALL({
 	attributes: ["id", "content", "title"],
 	includes: [
 		{
@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
 		}
 	]
   })
-  .then((dbPostData) => {
-	const posts = dbPostData.map((post) => post.get({ plain: true }));
-	res.render("homepage", { posts, loggedIn: req.session/loggedIn });
+  .then((commentData) => {
+	const posts = dbPostData.map((commentData) => post.get({ plain: true }));
+	res.render("homepage", { posts, loggedIn: req.session.loggedIn });
   })
   .catch((err) => {
 	console.log(err);
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 
 // logun route
 router.get('/login', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     res.redirect('/');
     return;
   }
