@@ -9,13 +9,16 @@ const sequelize = require("./config/connection.js")
 //import api routes
 const api = require("./controller");
 // server config
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
 //endpoint / routes
 const sessionOptions = {
     secret: 'ultra super secret',
+    cookie: {
+        maxAge: 86400000, // expires after 1 day
+      },
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
