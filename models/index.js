@@ -7,4 +7,4 @@ User.hasMany(Comment, {
 
 Comment.belongsTo(User)
 
-module.exports = { User, Comment};
+module.exports = { User, Comment };

@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 	]
   })
   .then((commentData) => {
-	const posts = dbPostData.map((commentData) => post.get({ plain: true }));
+	const posts = commentData.map((commentData) => post.get({ plain: true }));
 	res.render("homepage", { posts, loggedIn: req.session.loggedIn });
   })
   .catch((err) => {
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-// logun route
+// login route
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
@@ -30,5 +30,11 @@ router.get('/login', (req, res) => {
   }
   res.render('login');
 });
+
+// signup route
+router.get('/signup', (req, res) => {
+	res.render('signup');
+  });
+  
 
 module.exports = router;

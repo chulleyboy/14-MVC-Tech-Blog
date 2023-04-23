@@ -49,9 +49,8 @@ router.post('/logout', (req, res) => {
 	}
 });
 
-
-// create user
-router.post('/', async (req, res) => {
+//Signup
+router.post('/signup', async (req, res) => {
 	try {
 		const userData = await User.create({
 			username: req.body.username,
@@ -61,7 +60,7 @@ router.post('/', async (req, res) => {
 
 		req.session.save(() => {
 			req.session.loggedIn = true;
-			res.session(200).json(userData);
+			res.status(200).json({ user: userData, message: 'Successfully signed up!' });
 		});
 	} catch (err) {
 		res.status(500).json(err);
