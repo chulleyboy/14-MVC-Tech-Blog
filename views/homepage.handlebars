@@ -1,2 +1,9 @@
-<p> Homepage
-</p>
+<p>Homepage</p>
+
+{{#each posts}}
+  <div class="post">
+    <h2>{{title}}</h2>
+    <p>{{content}}</p>
+    <p>Posted by: {{User.username}}</p>
+  </div>
+{{/each}}
