@@ -3,7 +3,7 @@ const { User, Comment } = require('../../models');
 
 // Prevent non logged in users from viewing the homepage
 router.get('/', async (req, res) => {
-  Comment.findALL({
+  Comment.findAll ({
 	attributes: ["id", "content", "title"],
 	includes: [
 		{
