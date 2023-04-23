@@ -1,15 +1,32 @@
-<form class="form dashboard-form" data-user-id="{{ user_id }}">
+<form class="form dashboard-form">
   <input type="text" id="post-title" placeholder="Title">
   <textarea id="post-content" placeholder="Content"></textarea>
   <button class="btn btn-primary" id="create-post-btn" type="button">Create Post</button>
+  <input type="hidden" id="user_id" value="{{ user_id }}">
+  <input type="hidden" id="user_username" value="{{ user_username }}">
 </form>
+
+<h3>Your Blog Posts:</h3>
+
+{{#each posts}}
+  {{#equals this.user_id session.user_id}}
+    <div class="post">
+      <h2>{{title}}</h2>
+      <p>{{content}}</p>
+      <p>Posted by: {{username}} on {{date}}</p>
+    </div>
+  {{/equals}}
+{{/each}}
 
 <script src="/js/post.js"></script>
 
 <script>
   document.querySelector('#create-post-btn').addEventListener('click', () => {
     const form = document.querySelector('.dashboard-form');
-    const user_id = form.dataset.userId;
-    newPost(user_id);
+    const user_id = document.querySelector('#user_id').value;
+    const user_username = document.querySelector('#user_username').value;
+	console.log(document.querySelector('#user_id').value)
+	console.log(document.querySelector('#user_username').value)
+    newPost(user_id, user_username);
   });
 </script>

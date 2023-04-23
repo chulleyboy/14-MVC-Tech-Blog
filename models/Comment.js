@@ -13,11 +13,11 @@ Comment.init(
 			autoIncrement: true,
 		  },
 		  title: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			allowNull: false,
 		  },
 		  content: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			allowNull: false,
 		  },
 		  user_id: {
@@ -27,6 +27,18 @@ Comment.init(
 				model: 'user',
 				key: 'id',
 			}
+		  },
+		  username: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			references: {
+				model: 'user',
+				key: 'username',
+			}
+		  },
+		  date: {
+			type: DataTypes.STRING,
+			allowNull: false,
 		  }
 	},
 	{

@@ -7,14 +7,14 @@ router.post('/login', async (req, res) => {
 	try {
 		const userData = await User.findOne({
 			where: {
-				email: req.body.email,
+				username: req.body.username,
 			}
 		});
 	
 	if (!userData) {
 		res
 		.status(400)
-		.json({message: 'Invalid email or password'})
+		.json({message: 'Invalid username or password'})
 		return;
 	}
 
@@ -23,13 +23,14 @@ router.post('/login', async (req, res) => {
 	if (!password) {
 		res
 		.status(400)
-		.json({message: 'Invalid email or password'})
+		.json({message: 'Invalid username or password'})
 		return;
 	}
 
 	req.session.save(() => {
+	  req.session.loggedIn = true;
 	  req.session.user_id = userData.id;
-      req.session.loggedIn = true;
+	  req.session.user_username = userData.username;
       res
         .status(200)
         .json({ user: userData, message: 'Successfully logged in!' });
@@ -62,6 +63,7 @@ router.post('/signup', async (req, res) => {
 		req.session.save(() => {
 			req.session.loggedIn = true;
 			req.session.user_id = userData.id;
+			req.session.user_username = userData.username;
 			res.status(200).json({ user: userData, message: 'Successfully signed up!' });
 		});
 	} catch (err) {

@@ -4,9 +4,15 @@ const { Comment } = require("../../models");
 // create comment
 router.post("/", async (req, res) => {
 	try {
+		const date = new Date();
+		const options = { year: 'numeric', month: 'long', day: 'numeric' };
+		const formattedDate = date.toLocaleDateString('en-US', options);
 		const comment = await Comment.create({
 			title: req.body.title,
 			content: req.body.content,
+			user_id: req.body.user_id,
+			username: req.body.user_username,
+			date: formattedDate
 		});
 
 		req.session.save(() => {
