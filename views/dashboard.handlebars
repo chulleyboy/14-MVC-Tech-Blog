@@ -6,8 +6,6 @@
   <input type="hidden" id="user_username" value="{{ user_username }}">
 </form>
 
-<h3>Your Blog Posts:</h3>
-
 {{#each posts}}
   {{#equals this.user_id session.user_id}}
     <div class="post">
